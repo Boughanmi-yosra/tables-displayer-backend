@@ -38,14 +38,6 @@ pipeline {
             }
         }
 
-        stage('Rollback on Failure') {
-            steps {
-                script {
-                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        bat 'firebase hosting:rollback --project=tables-displayer-backend'
-                    }
-                }
-            }
-        }
+
     }
 }
