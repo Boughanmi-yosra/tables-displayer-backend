@@ -32,7 +32,7 @@ pipeline {
 
         stage('Deploy to Firebase') {
             steps {
-                sh 'firebase deploy --project=staging --only functions --token "$FIREBASE_SERVICE_ACCOUNT"'
+                bat 'firebase deploy --project=staging --only functions --token "$FIREBASE_SERVICE_ACCOUNT"'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        sh 'firebase hosting:rollback --project=staging'
+                        bat 'firebase hosting:rollback --project=staging'
                     }
                 }
             }
