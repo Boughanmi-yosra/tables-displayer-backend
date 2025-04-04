@@ -20,13 +20,13 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'mvn test'  // Run unit & integration tests
+                bat 'mvn test'  // Run unit & integration tests
             }
         }
 
         stage('Build App') {
             steps {
-                sh 'mvn clean install -DskipTests'  // Skip tests in build step
+                bat 'mvn clean install -DskipTests'  // Skip tests in build step
             }
         }
 
