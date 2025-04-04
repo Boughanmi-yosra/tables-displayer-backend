@@ -34,8 +34,8 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     dir('functions') {
-                        sh 'npm install'
-                        sh 'firebase deploy --project=staging --only functions'
+                        bat 'npm install'
+                        bat 'firebase deploy --project=staging --only functions'
                     }
                 }
             }
