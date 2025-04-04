@@ -20,30 +20,24 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'mvn test'  // Run unit & integration tests
+                bat 'mvn test'  // Run unit & integration tests
             }
         }
 
         stage('Build App') {
             steps {
-                sh 'mvn clean install -DskipTests'  // Skip tests in build step
+                bat 'mvn clean install -DskipTests'  // Skip tests in build step
             }
         }
 
-        stage('Deploy to Firebase') {
+        stage('Deploy to Firebase Hosting') {
             steps {
-                sh 'firebase deploy --project=staging --only functions --token "$FIREBASE_SERVICE_ACCOUNT"'
-            }
-        }
-
-        stage('Rollback on Failure') {
-            steps {
-                script {
-                    catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        sh 'firebase hosting:rollback --project=staging'
-                    }
+                withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    bat 'firebase deploy --project=tables-displayer-backend --only hosting'
                 }
             }
         }
+
+
     }
 }

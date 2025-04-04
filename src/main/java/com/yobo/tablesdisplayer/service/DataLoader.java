@@ -4,7 +4,7 @@ import com.yobo.tablesdisplayer.entity.TableEntity;
 import com.yobo.tablesdisplayer.repository.TableRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
+//Testing triggers
 @Component
 public class DataLoader implements CommandLineRunner {
 
