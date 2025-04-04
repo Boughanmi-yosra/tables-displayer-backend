@@ -33,7 +33,7 @@ pipeline {
         stage('Deploy to Firebase Hosting') {
             steps {
                 withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    bat 'firebase deploy --project=staging --only hosting'
+                    bat 'firebase deploy --project=tables-displayer-backend --only hosting'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                        bat 'firebase hosting:rollback --project=staging'
+                        bat 'firebase hosting:rollback --project=tables-displayer-backend'
                     }
                 }
             }
