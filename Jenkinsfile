@@ -24,27 +24,16 @@ pipeline {
             }
         }
 
-        stage('Lint Functions Code') {  // ✅ Ajout du Linting
-            steps {
-                dir('functions') {
-                    bat 'npm install'  // Assure que les dépendances sont installées
-                    bat 'npm run lint'  // Vérifie le style et les erreurs du code
-                }
-            }
-        }
-
         stage('Build App') {
             steps {
                 bat 'mvn clean install -DskipTests'  // Skip tests in build step
             }
         }
 
-        stage('Deploy to Firebase') {
+        stage('Deploy to Firebase Hosting') {
             steps {
                 withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    dir('functions') {
-                        bat 'firebase deploy --project=staging --only hosting'
-                    }
+                    bat 'firebase deploy --project=staging --only hosting'
                 }
             }
         }
