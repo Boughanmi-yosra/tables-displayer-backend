@@ -32,6 +32,7 @@ pipeline {
 
         stage('Deploy to Firebase') {
             steps {
+                bat 'npm install'
                 bat 'firebase deploy --project=staging --only functions --token "$FIREBASE_SERVICE_ACCOUNT"'
             }
         }
