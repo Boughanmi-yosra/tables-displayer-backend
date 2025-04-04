@@ -43,7 +43,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     dir('functions') {
-                        bat 'firebase deploy --project=staging --only functions'
+                        bat 'firebase deploy --project=staging --only hosting'
                     }
                 }
             }
