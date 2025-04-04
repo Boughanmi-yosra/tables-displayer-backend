@@ -32,10 +32,12 @@ pipeline {
 
         stage('Deploy to Firebase') {
             steps {
-               dir('functions') {
-                    bat 'npm install'
-                    bat 'firebase deploy --project=staging --only functions'
-               }
+                withCredentials([file(credentialsId: 'FIREBASE_SERVICE_ACCOUNT', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    dir('functions') {
+                        sh 'npm install'
+                        sh 'firebase deploy --project=staging --only functions'
+                    }
+                }
             }
         }
 
