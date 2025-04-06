@@ -17,13 +17,8 @@ public class TableController {
     }
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:4200")  // Allow CORS for this method
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8070"})  // Allow CORS for this method
     public List<TableEntity> getTables() {
-        List<TableEntity> list = service.getAllTables();
-
-        for (TableEntity te:list             ) {
-            System.out.println(te.getId() +" "+ te.getName());
-        }
         return service.getAllTables();
     }
 }
